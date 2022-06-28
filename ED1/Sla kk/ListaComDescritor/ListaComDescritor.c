@@ -45,7 +45,7 @@ void imprimeLista(Tdescritor **l){
     }
 }
 
-void insereFinal( Tdescritor *l){
+void insereFinal( Tdescritor *l, int v){
     Tlista *n = malloc(sizeof(Tlista));
 
     if(n != NULL){
@@ -53,16 +53,36 @@ void insereFinal( Tdescritor *l){
     }
 }
 
+void removeInicio(Tdescritor *l){
+    if(!estaVazia(l)){
+        Tlista *aux = l->prim;
+
+        l->prim = aux->prox;
+        free(aux);
+
+        if(l->prim == NULL)
+            l->ult = NULL;
+        l->n--;
+
+    }else{
+        printf("A lista está vazia!\n");
+    }
+}
+
 int main(){
 Tdescritor lista;
-
+    system("cls");
     criarLista(&lista);
     insereInicio(&lista, 10);
     insereInicio(&lista, 20);
-
-    insereFinal(&lista, 100);
-    insereFinal(&lista, 200);
+    insereInicio(&lista, 30);
 
     imprimeLista(&lista);
+
+    printf("\nApos a remocao: \n\n");
+    removeInicio(&lista);
+    imprimeLista(&lista);
+
+
     return 0;
 }
